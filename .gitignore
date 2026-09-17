@@ -1,0 +1,9 @@
+.idea/
+.venv/
+__pycache__/
+data/
+output/
+btvn.py
+binary.py
+key.txt
+

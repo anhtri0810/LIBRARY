@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurora Bookshelf</title>
+  <meta name="description" content="A premium personal digital bookshelf." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div>
+        <div class="brand-name">Aurora</div>
+        <div class="brand-sub">Digital Bookshelf</div>
+      </div>
+    </div>
+
+    <nav>
+      <button class="nav-item active" data-view="library"><span>▦</span> Library</button>
+      <button class="nav-item" data-view="discover"><span>⌕</span> Discover</button>
+      <button class="nav-item" data-view="tags"><span>◇</span> Tags</button>
+      <button class="nav-item" data-view="activity"><span>◷</span> Activity</button>
+      <button class="nav-item" data-view="backups"><span>◫</span> Backups</button>
+    </nav>
+
+    <div class="side-card">
+      <div class="side-icon">✦</div>
+      <div class="side-title">Your reading space</div>
+      <div class="side-text">Keep every title searchable, organized and safe.</div>
+      <button class="side-action" id="backupSidebar">Create backup</button>
+    </div>
+
+    <div class="sidebar-footer">
+      <span>v1.0</span>
+      <span class="status-dot"></span>
+      <span>Local & private</span>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><span id="crumbMain">Library</span><span class="slash">/</span><span id="crumbSub">Overview</span></div>
+      <div class="top-actions">
+        <button class="icon-button" id="themeButton" title="Toggle appearance">☼</button>
+        <button class="ghost-button" id="exportButton">Export JSON</button>
+        <button class="primary-button" id="addTopButton">+ Add book</button>
+      </div>
+    </header>
+
+    <section class="hero" id="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">YOUR PERSONAL COLLECTION</div>
+        <h1>Read more.<br><em>Remember everything.</em></h1>
+        <p>One elegant place for the books you own, the ideas you discover, and the titles you want to explore next.</p>
+        <div class="hero-actions">
+          <button class="primary-button large" id="heroAdd">+ Add your first book</button>
+          <button class="text-button" data-view-jump="discover">Discover online →</button>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="orb"></div>
+        <div class="book-stack">
+          <div class="book book-1"><span>PHYSICS</span></div>
+          <div class="book book-2"><span>THE ART OF IDEAS</span></div>
+          <div class="book book-3"><span>ALGORITHMS</span></div>
+        </div>
+        <div class="floating-card card-a"><b id="heroTotal">0</b><span>books collected</span></div>
+        <div class="floating-card card-b"><b id="heroTagged">0</b><span>organized with tags</span></div>
+      </div>
+    </section>
+
+    <section class="stats-grid" id="statsGrid">
+      <div class="stat-card"><span class="stat-label">Total books</span><b id="statTotal">0</b><span class="stat-note">in your collection</span></div>
+      <div class="stat-card"><span class="stat-label">Authors</span><b id="statAuthors">0</b><span class="stat-note">distinct writers</span></div>
+      <div class="stat-card"><span class="stat-label">Tagged</span><b id="statTagged">0</b><span class="stat-note">organized titles</span></div>
+      <div class="stat-card"><span class="stat-label">Latest year</span><b id="statYear">—</b><span class="stat-note">newest publication</span></div>
+    </section>
+
+    <section class="view active" id="view-library">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">COLLECTION</div>
+          <h2>Your library</h2>
+        </div>
+        <div class="section-tools">
+          <div class="searchbox">
+            <span>⌕</span>
+            <input id="librarySearch" type="search" placeholder="Search title, author or tag..." />
+          </div>
+          <select id="tagFilter">
+            <option value="">All tags</option>
+          </select>
+        </div>
+      </div>
+      <div id="libraryGrid" class="book-grid"></div>
+      <div id="emptyLibrary" class="empty-state hidden">
+        <div class="empty-orb">✦</div>
+        <h3>No books here yet</h3>
+        <p>Add a few favorites and Aurora will turn them into a beautiful searchable collection.</p>
+        <button class="primary-button" id="emptyAdd">Add a book</button>
+      </div>
+    </section>
+
+    <section class="view" id="view-discover">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">GOOGLE BOOKS</div>
+          <h2>Discover online</h2>
+        </div>
+        <div class="section-tools">
+          <div class="searchbox wide">
+            <span>⌕</span>
+            <input id="onlineSearch" type="search" placeholder="Search books, authors, topics..." />
+          </div>
+          <button class="primary-button" id="onlineSearchButton">Search</button>
+        </div>
+      </div>
+      <div id="discoverGrid" class="discover-grid"></div>
+      <div id="discoverHint" class="discover-hint">Search for a title and explore covers, authors and publication details.</div>
+    </section>
+
+    <section class="view" id="view-tags">
+      <div class="section-head"><div><div class="section-kicker">ORGANIZE</div><h2>Browse by tag</h2></div></div>
+      <div id="tagsPanel" class="tags-panel"></div>
+    </section>
+
+    <section class="view" id="view-activity">
+      <div class="section-head"><div><div class="section-kicker">HISTORY</div><h2>Recent activity</h2></div></div>
+      <div id="activityPanel" class="activity-panel"></div>
+    </section>
+
+    <section class="view" id="view-backups">
+      <div class="section-head">
+        <div><div class="section-kicker">DATA SAFETY</div><h2>Backups</h2></div>
+        <button class="primary-button" id="backupButton">Create backup now</button>
+      </div>
+      <div class="backup-info">
+        <div class="backup-icon">◫</div>
+        <div><b>Your collection is stored locally.</b><span>A backup snapshot is also created automatically every 5 minutes while the app is running, with the newest 20 snapshots retained.</span></div>
+      </div>
+      <div id="backupPanel" class="backup-panel"></div>
+      <div class="import-row">
+        <input id="importFile" type="file" accept=".json,application/json" hidden>
+        <button class="ghost-button" id="importButton">Import JSON</button>
+        <span>Replace the current collection from a JSON array.</span>
+      </div>
+    </section>
+
+    <footer class="footer">Aurora Bookshelf · inspired by your original JSON bookshelf workflow</footer>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card">
+      <button class="modal-close" data-close-modal>×</button>
+      <div class="section-kicker">BOOK DETAILS</div>
+      <h2 id="modalTitle">Add a book</h2>
+      <form id="bookForm">
+        <input type="hidden" id="editingIndex" value="">
+        <label>Title<input id="bookTitle" required placeholder="e.g. The Martian"></label>
+        <label>Author<input id="bookAuthor" required placeholder="e.g. Andy Weir"></label>
+        <div class="two-col">
+          <label>Publication year<input id="bookYear" required type="number" min="0" max="2100" placeholder="2011"></label>
+          <label>Tag<input id="bookTag" placeholder="Science fiction"></label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="ghost-button" data-close-modal>Cancel</button>
+          <button class="primary-button" type="submit" id="saveBookButton">Save book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
