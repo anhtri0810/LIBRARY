@@ -1,0 +1,32 @@
+[
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "year": 1925,
+    "tag": "Classic"
+  },
+  {
+    "title": "1984",
+    "author": "George Orwell",
+    "year": 1949,
+    "tag": "Fiction"
+  },
+  {
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "year": 1937,
+    "tag": "Fantasy"
+  },
+  {
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "year": 2018,
+    "tag": "Self Growth"
+  },
+  {
+    "title": "The Design of Everyday Things",
+    "author": "Don Norman",
+    "year": 2013,
+    "tag": "Design"
+  }
+]

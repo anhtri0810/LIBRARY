@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aurora — Modern Library</title>
+<meta name="description" content="A beautiful personal digital bookshelf.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark">A</div><div><b>Aurora</b><span>Bookshelf</span></div></div>
+  <nav>
+    <button class="nav active" data-view="library">⌂ <span>Library</span></button>
+    <button class="nav" data-view="recent">◷ <span>Recent</span></button>
+    <button class="nav" data-view="tags">◇ <span>Collections</span></button>
+  </nav>
+  <div class="side-bottom">
+    <button class="nav" id="importBtn">↑ <span>Import</span></button>
+    <button class="nav" id="exportBtn">↓ <span>Export</span></button>
+    <button class="nav" id="themeBtn">☼ <span>Appearance</span></button>
+    <input id="fileInput" type="file" accept=".json" hidden>
+  </div>
+</aside>
+
+<main>
+<header>
+  <div class="mobile-brand">Aurora</div>
+  <div class="header-actions">
+    <div class="search"><span>⌕</span><input id="search" placeholder="Search your library..." autocomplete="off"><kbd>⌘ K</kbd></div>
+    <button class="icon-btn" id="addBtn" aria-label="Add book">＋</button>
+    <button class="avatar">AT</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <p class="eyebrow">YOUR PERSONAL LIBRARY</p>
+    <h1>A quiet place for<br><em>great ideas.</em></h1>
+    <p class="sub">Collect, explore and keep track of the books that shape your thinking.</p>
+  </div>
+  <button class="primary" id="heroAdd">Add a book <span>＋</span></button>
+</section>
+
+<section class="stats">
+  <div><span id="total">0</span><small>Books</small></div>
+  <div><span id="authors">0</span><small>Authors</small></div>
+  <div><span id="tagged">0</span><small>Collections</small></div>
+  <div><span id="latest">—</span><small>Latest edition</small></div>
+</section>
+
+<section class="content-head">
+  <div><h2 id="sectionTitle">Your Library</h2><p id="sectionMeta">All your books in one place</p></div>
+  <div class="filters"><select id="tagFilter"><option value="">All collections</option></select><button id="sortBtn">A–Z ↕</button></div>
+</section>
+
+<section id="bookGrid" class="book-grid"></section>
+
+<section id="empty" class="empty hidden"><div>✦</div><h3>Nothing here yet</h3><p>Add a book or change your search.</p></section>
+
+<footer><span>Aurora Bookshelf</span><span>Built for curious minds · <span id="yearNow"></span></span></footer>
+</main>
+</div>
+
+<div class="modal hidden" id="modal">
+ <div class="modal-card">
+  <button class="modal-close" id="closeBtn">×</button>
+  <p class="eyebrow">LIBRARY</p><h2 id="modalTitle">Add a book</h2>
+  <form id="bookForm">
+   <label>Title<input id="title" required placeholder="e.g. The Little Prince"></label>
+   <label>Author<input id="author" required placeholder="e.g. Antoine de Saint-Exupéry"></label>
+   <div class="two"><label>Year<input id="year" required type="number" min="0" placeholder="2026"></label><label>Collection<input id="tag" placeholder="e.g. Fiction"></label></div>
+   <button class="primary wide">Save to library</button>
+  </form>
+ </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
